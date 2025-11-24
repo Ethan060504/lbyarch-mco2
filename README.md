@@ -243,7 +243,7 @@ Overall, these findings highlight that writing code in assembly does not guarant
 To end, this project demonstrated that performance is not only influenced by language levels, but is also affected by other factors, such as compiler optimizations, hardware behavior, and execution implementation, making us challenge what we previously believed in. 
 
 ## Project Video Presentation and Demonstration
-The link for the project video presentation and demonstration can be found here: <link>
+The link for the project video presentation and demonstration can be found here: https://drive.google.com/drive/folders/1WZNG3nQbUqnGqL-VOwizq40DKY1vls-h?usp=sharing
 
 ## AI Declaration
 * ChatGPT was used as assistance in improving project documentation report.
