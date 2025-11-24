@@ -198,6 +198,50 @@ This section presents the raw measured runtimes, followed by computed averages a
 
 ---
 
+### Execution Time Results Analysis & Discussion
+
+Initially, the results were surprising and not what I expected. Coming into this project, I assumed that using assembly language would result in significantly faster execution times compared to a higher-level language like C, since assembly operates closer to the hardware level. However, the actual performance measurements showed that simply writing code in assembly does not automatically make it faster. In fact, the standard C implementation consistently executed faster than the x86-64 assembly version at every vector size tested.
+
+Referencing the measured averages:
+- At `2^20`: C averaged **0.001781 sec**, while x86-64 ASM averaged **0.002081 sec**
+- At `2^24`: C averaged **0.027038 sec**, while x86-64 ASM averaged **0.029394 sec**
+- At `2^29`: C averaged **13.256370 sec**, while x86-64 ASM averaged **38.965067 sec**
+
+In percentage differences:
+- C was **14.4% faster** at `2^20`
+- C was **8.0% faster** at `2^24`
+- C was **66.0% faster** at `2^29`
+
+These results clearly show that not only was C consistently faster than ASM, but the performance gap actually increased as the vector size became larger.
+
+---
+
+Examining the individual runtime tables also reveals a distinct behavior between the two versions. The x86-64 ASM execution times are fairly consistent across runs, showing only mild variations. In contrast, the C execution times, especially in the `2^29` case, show a strong decreasing trend over repeated runs.
+
+For `2^29`, for example:
+
+- **x86-64 ASM version:**
+  - Run #1: **26.572782 sec**  
+  - Run #10: **46.450958 sec**  
+  - Run #20: **35.956295 sec**  
+  - Run #30: **35.146151 sec**  
+  - Across all runs: values fluctuate within a limited range but remain relatively steady
+
+- **C version:**
+  - Run #1: **69.382460 sec**
+  - Run #10: **1.901584 sec**
+  - Run #20: **0.801076 sec**
+  - Run #30: **0.765519 sec**
+  - From about Run #11 onward: execution times stabilize below **1.0 sec**  
+
+This downward trend in the C version suggests that repeated execution benefits from factors like CPU caching, data locality, and runtime optimizations that allow subsequent runs to execute more efficiently.
+
+---
+
+Overall, these findings highlight that writing code in assembly does not guarantee faster performance. Modern compilers for languages like C apply advanced optimization techniques such as loop restructuring, register allocation, and instruction scheduling automatically. Additionally, improvements in modern CPU architecture — including caching mechanisms, branch prediction, and memory prefetching — can significantly optimize runtime behavior in ways that a straightforward assembly implementation may not take advantage of.
+
+To end, this project demonstrated that performance is not only influenced by language levels, but is also affected by other factors, such as compiler optimizations, hardware behavior, and execution implementation, making us challenge what we previously believed in. 
+
 ## Project Video Presentation and Demonstration
 The link for the project video presentation and demonstration can be found here: <link>
 
